@@ -1,32 +1,34 @@
 ﻿'################################################################################### @@ hightlight id_;_65924_;_script infofile_;_ZIP::ssf50.xml_;_
 '====================================================================================
 '*
-' Version of application
+' Open application
+' Verify if a pop-up appeared
+' Verify your version of application
 '*
 '====================================================================================
-SystemUtil.Run "C://AWRoot/bin/launcher/LctPOLUX.exe" 
-wait 15
-mytext = Browser("Home").Page("Home").GetRoProperty("innertext")
-While InStr(1, mytext, "Please wait") <> 0
-	mytext = Browser("Home").Page("Home").GetRoProperty("innertext")
-Wend
-wait 10
-mytext = Browser("Home").Page("Home").GetRoProperty("innertext")
-While InStr(1, mytext, "Do you search for new updates?") <> 0
-	mytext = Browser("Home").Page("Home").GetRoProperty("innertext")
-	If InStr(1, mytext, "Do you search for new updates?") <> 0 Then
-		Browser("Home").Page("Home").WebButton("CANCEL_BTN").Click			
-	End If
-Wend
-mytext = Browser("Home").Page("Home").GetRoProperty("innertext")
-If InStr(1, mytext, "v09.34") <> 0 Then
-	Desktop.CaptureBitmap "report_image.png", True
-	Reporter.ReportEvent micDone, "Information", "The version of DiagBox is v09.38", "report_image.png"
-Else
-	Desktop.CaptureBitmap "report_image.png", True
-	Reporter.ReportEvent micFail, "Information", "The version of DiagBox is not v09.38", "report_image.png"
-	SystemUtil.CloseProcessByName "diagnostic.exe"
-End If
+'SystemUtil.Run "C://AWRoot/bin/launcher/LctPOLUX.exe" 
+'wait 15
+'mytext = Browser("Home").Page("Home").GetRoProperty("innertext")
+'While InStr(1, mytext, "Please wait") <> 0
+'	mytext = Browser("Home").Page("Home").GetRoProperty("innertext")
+'Wend
+'wait 10
+'mytext = Browser("Home").Page("Home").GetRoProperty("innertext")
+'While InStr(1, mytext, "Do you search for new updates?") <> 0
+'	mytext = Browser("Home").Page("Home").GetRoProperty("innertext")
+'	If InStr(1, mytext, "Do you search for new updates?") <> 0 Then
+'		Browser("Home").Page("Home").WebButton("CANCEL_BTN").Click			
+'	End If
+'Wend
+'mytext = Browser("Home").Page("Home").GetRoProperty("innertext")
+'If InStr(1, mytext, "v09.34") <> 0 Then
+'	Desktop.CaptureBitmap "report_image.png", True
+'	Reporter.ReportEvent micDone, "Information", "The version of DiagBox is v09.38", "report_image.png"
+'Else
+'	Desktop.CaptureBitmap "report_image.png", True
+'	Reporter.ReportEvent micFail, "Information", "The version of DiagBox is not v09.38", "report_image.png"
+'	SystemUtil.CloseProcessByName "diagnostic.exe"
+'End If
 '####################################################################################
 
 
@@ -40,7 +42,7 @@ End If
 '#################################################################################### @@ hightlight id_;_10000000_;_script infofile_;_ZIP::ssf32.xml_;_
 '====================================================================================
 '*
-' Recognition of text
+' Authentication
 '*
 '==================================================================================
 'Reporter.Filter = 3
@@ -90,16 +92,13 @@ End If
 '#################################################################################### @@ hightlight id_;_10000000_;_script infofile_;_ZIP::ssf32.xml_;_
 '====================================================================================
 '*
-' Recognition of Authentification button
-'*
+' Recognation of Authentification pop-up
 '==================================================================================
 'Set obj = CreateObject("Mercury.DeviceReplay")
 '
 'mytext = Browser("Home").Page("Home").GetRoProperty("innertext")
-'comptext = "AUTHENTICATION"
-'strmatch = InStr(1, mytext, comptext)
-'If 	InStr(1, mytext, "Select the marque") <> 0 Then
-'	If strmatch <> 0  Then
+'If InStr(1, mytext, "Select the marque") <> 0 Then
+'	If InStr(1, mytext, "AUTHENTICATION") <> 0  Then
 '		Desktop.CaptureBitmap "report_image.png", True
 '		Reporter.ReportEvent micDone, "Success", "The text matches!" & mytext, "report_image.png"
 '		Browser("Home").Page("Home").WebButton("CANCEL_BTN_2").Click
@@ -134,7 +133,7 @@ End If
 'If Err.Number <> 0 Then
 '	Reporter.Filter = 0
 '	Desktop.CaptureBitmap "report_image.png", True
-'    Reporter.ReportEvent micFail, "Failled", "The path is invalid!", "report_image.png"
+'   Reporter.ReportEvent micFail, "Failled", "The path is invalid!", "report_image.png"
 'Else
 '	If 	Browser("Home").Page("Home").WebButton("jeton_user").Exist(50) Then
 '		Reporter.Filter = 0
@@ -158,7 +157,7 @@ End If
 '####################################################################################
 '====================================================================================
 '*
-' Closes the application using it's process
+' The application is closed using its process
 '*
 '====================================================================================
 'Reporter.Filter = 3
